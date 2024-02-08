@@ -15,6 +15,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import pageObjects.LandingPageObjects;
 import utils.TestContextSetup;
 
 public class LandingPageStepDef {
@@ -23,9 +24,9 @@ public class LandingPageStepDef {
 	String LandingPageProductName;
 	String offerPageProductName;
 	TestContextSetup testContextSetup;
-	
+
 	public LandingPageStepDef(TestContextSetup testContextSetup) {
-		this.testContextSetup=testContextSetup;
+		this.testContextSetup = testContextSetup;
 	}
 
 	@Given("User is on GreenCart Landing page")
@@ -41,17 +42,15 @@ public class LandingPageStepDef {
 	public void user_searched_with_short_name_and_extracted_actual_name_of_product(String shortName)
 			throws InterruptedException {
 
-		WebElement searchBar = testContextSetup.driver.findElement(By.className("search-keyword"));
-		searchBar.click();
-		searchBar.sendKeys(shortName);
+		LandingPageObjects landingPageObjects = new LandingPageObjects(testContextSetup.driver);
+		landingPageObjects.searchItem(shortName);
+		// la fonction .searchItem() en haut remplace ce code :
+		// testContextSetup.driver.findElement(By.className("search-keyword")).sendKeys(shortName);
 
 		Thread.sleep(2000);
 
-		testContextSetup.LandingPageProductName = testContextSetup.driver.findElement(By.tagName("h4")).getText();
-		
+		testContextSetup.LandingPageProductName = landingPageObjects.getProductName();
 
 	}
-
-	
 
 }
