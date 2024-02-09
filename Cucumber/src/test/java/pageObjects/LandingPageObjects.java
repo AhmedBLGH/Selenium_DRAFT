@@ -11,8 +11,9 @@ public class LandingPageObjects {
 		this.driver = driver;
 	}
 
-	By searchBar = By.className("search-keyword");
-	By productName = (By.tagName("h4"));
+	private By searchBar = By.className("search-keyword");
+	private By productName = (By.tagName("h4"));
+	private By TopDealsButton = By.linkText("Top Deals");
 
 	public void searchItem(String shortName) {
 		driver.findElement(searchBar).sendKeys(shortName);
@@ -21,5 +22,9 @@ public class LandingPageObjects {
 	public String getProductName() {
 
 		return driver.findElement(productName).getText();
+	}
+	
+	public void switchToOffersPage() {
+		driver.findElement(TopDealsButton).click();
 	}
 }
