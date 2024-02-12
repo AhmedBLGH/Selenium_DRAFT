@@ -23,18 +23,25 @@ public class TestBase {
 		Properties prop = new Properties();
 		prop.load(fis);
 		
-		String url = prop.getProperty("QAurl");
 		
+		String url = prop.getProperty("QAurl");
+		String browser_properties = prop.getProperty("browser");
+		String browser_mvn = System.getProperty("browser");
+		
+		//result = testcondition ? value1 : value2
+		
+		String browser = browser_mvn!=null ? browser_mvn : browser_properties;
 		
 		if(driver == null) {
-			if("chrome".equals(prop.getProperty("browser"))) {
+			if("chrome".equals(browser)) {
 				System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir")+"//src//test//resources//chromedriver.exe");
 				ChromeOptions options = new ChromeOptions();
 				options.addArguments("--remote-allow-origins=*");
 				driver = new ChromeDriver(options);
 				driver.get(url);
 			}
-			if("firefox".equals(prop.getProperty("browser"))) {
+			if("firefox".equals(browser)) {
+				System.setProperty("webdriver.gecko.driver",System.getProperty("user.dir")+"//src//test//resources//geckodriver.exe");
 				driver = new FirefoxDriver();
 				driver.get(url);
 			}
