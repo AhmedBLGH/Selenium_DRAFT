@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.FileInputStream;
+import io.github.bonigarcia.wdm.WebDriverManager;   
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Properties;
